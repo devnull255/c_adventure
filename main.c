@@ -1,5 +1,10 @@
+/****************************************************
+ *         location.h
+ *         Contains location types and functions
+ ****************************************************/
 #include <stdio.h>
 #include <string.h>
+#include "location.h"
 
 static char input[100];
 
@@ -16,7 +21,10 @@ static int parseAndExecute() {
             return 0;
         }
         else if (strcmp(verb, "look") == 0) {
-           printf("It's too dark to go anywhere.\n");
+           executeLook(noun);
+        }
+        else if (strcmp(verb, "go") == 0) {
+           executeGo(noun);
         }
         else {
            printf("I don't know how to '%s'.\n", verb);
@@ -28,7 +36,7 @@ static int parseAndExecute() {
  
 int main() {
     printf("Welcome to Little Cave Adventure.\n");
-    printf("It's very dark in here.\n");
+    executeLook("around");
     while (getInput() && parseAndExecute());
     printf("\nBye!\n");
     return 0;
