@@ -28,6 +28,10 @@ void executeDrop(const char *noun) {
 }
 
 void executeGive(const char *noun) {
+    moveObject(noun, player, personHere());
+}
+
+void executeAsk(const char *noun) {
     moveObject(noun, personHere(), player);
 }
 

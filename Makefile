@@ -2,15 +2,12 @@
 CC = cc
 CFLAGS =
 CPPFLAGS =
-
+OBJS = main.o location.o object.o misc.o inventory.o
 %.o: %.c
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 
-game: main.o location.o object.o misc.o
-	$(CC) -o c_adventure main.o location.o object.o misc.o
-
-location.o: object.o misc.o
-	$(CC) -c location.c object.o -o $@ 
+game: $(OBJS)
+	$(CC) -o c_adventure $(OBJS)
 
 clean:
 	rm -f c_adventure *.o

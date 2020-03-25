@@ -13,6 +13,16 @@ OBJECT *parseObject(const char *noun) {
     return found;
 }
 
+OBJECT *personHere(void) {
+    OBJECT *obj;
+    for (obj = objs; obj < endOfObjs; obj++) {
+        if (obj->location == player-> location && obj == guard) {
+            return obj;
+        }
+    }
+    return NULL;
+}
+
 int listObjectsAtLocation(OBJECT *location) {
     int count = 0;
     OBJECT *obj;
