@@ -14,6 +14,20 @@ OBJECT *getPassageTo(OBJECT *targetLocation) {
     return NULL;
 }
 
+DISTANCE distanceTo(OBJECT *obj) {
+    return
+       obj == NULL                                 ? distUnknownObject :
+       obj == player                               ? distPlayer :
+       obj == player->location                     ? distLocation :
+       obj->location == player                     ? distHeld :
+       obj->location == player->location           ? distHere :
+       getPassageTo(obj) != NULL                   ? distOverthere :
+       obj->location == NULL                       ? distNotHere :
+       obj->location->location == player           ? distHeldContained :
+       obj->location->location == player->location ? distHereContained :
+                                                     distNotHere;
+}
+
 OBJECT *parseObject(const char *noun) {
     OBJECT *obj, *found = NULL;
     for (obj = objs; obj < endOfObjs; obj++) {
@@ -27,7 +41,7 @@ OBJECT *parseObject(const char *noun) {
 OBJECT *personHere(void) {
     OBJECT *obj;
     for (obj = objs; obj < endOfObjs; obj++) {
-        if (obj->location == player-> location && obj == guard) {
+        if (distanceTo(obj) == distHere && obj == guard) {
             return obj;
         }
     }

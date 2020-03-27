@@ -12,8 +12,8 @@ extern OBJECT objs[];
 #define silver    (objs + 2)
 #define gold      (objs + 3)
 #define guard     (objs + 4)
-
 #define player    (objs + 5)
 #define intoCave  (objs + 6)
 #define exitCave  (objs + 7)
-#define endOfObjs (objs + 8)
+
+#define endOfObjs  (objs + 8)
