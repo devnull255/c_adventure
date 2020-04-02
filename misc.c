@@ -7,7 +7,7 @@ OBJECT *getPassageTo(OBJECT *targetLocation) {
     OBJECT *obj;
     for (obj = objs; obj < endOfObjs; obj++) {
         if (obj->location == player->location &&
-              obj->destination == targetLocation) {
+              obj->prospect == targetLocation) {
                 return obj;
         }
     }
@@ -49,7 +49,7 @@ OBJECT *parseObject(const char *noun) {
 OBJECT *personHere(void) {
     OBJECT *obj;
     for (obj = objs; obj < endOfObjs; obj++) {
-        if (distanceTo(obj) == distHere && obj == guard) {
+        if (distanceTo(obj) == distHere && obj->health > 0) {
             return obj;
         }
     }
@@ -62,7 +62,7 @@ int listObjectsAtLocation(OBJECT *location) {
     for (obj = objs; obj < endOfObjs; obj++) {
         if (obj != player && obj->location == location) {
            if (count++ == 0) {
-              printf("You see:\n");
+              printf("%s:\n", location->contents);
            }
            printf("%s\n", obj->description);
         }  
@@ -70,4 +70,12 @@ int listObjectsAtLocation(OBJECT *location) {
     return count;
 }
 
+int weightOfContents(OBJECT *container) {
+    int sum = 0;
+    OBJECT *obj;
+    for (obj = objs; obj < endOfObjs; obj++) {
+         if (obj->location == container) sum += obj->weight;
+    }
+    return sum;
+}
 

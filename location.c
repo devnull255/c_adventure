@@ -8,7 +8,23 @@ void executeLook(const char *noun) {
         printf("You are in %s.\n", player->location->description);
         listObjectsAtLocation(player->location);
     } else {
-       printf("I don't understand what you want to see.\n");
+       OBJECT *obj = parseObject(noun);
+       DISTANCE distance = distanceTo(obj);
+       if (distance == distNotHere) {
+           printf("I don't understand what you want to see.\n");
+       }
+       else if (distance == distOverthere) {
+           printf("Too far away, move closer please.\n");
+       } 
+    }
+}
+
+static void movePlayer(OBJECT *passage) {
+    printf("%s", passage->textGo);
+    if (passage->destination != NULL) {
+        player->location = passage->destination;
+        printf("\n");
+        executeLook("around");
     }
 }
 
@@ -20,13 +36,9 @@ void executeGo(const char *noun) {
     } else if (distance == distLocation) {
         printf("You are already there.\n");
     } else if (distance == distOverthere) {
-        printf("OK.\n");
-        player->location = obj;
-        executeLook("around");
-    } else if (distance == distHere && obj->destination != NULL) {
-        printf("OK.\n");
-        player->location = obj->destination;
-        executeLook("around");
+        movePlayer(getPassageTo(obj));
+    } else if (distance == distHere) {
+        movePlayer(obj);
     } else if (distance < distNotHere) {
         printf("You can't get any closer than this.\n");
     } else {
