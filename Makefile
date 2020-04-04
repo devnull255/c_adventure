@@ -2,7 +2,7 @@
 CC = cc
 CFLAGS =
 CPPFLAGS =
-OBJS = main.o location.o misc.o inventory.o
+OBJS = main.o location.o misc.o inventory.o 
 H = object.h misc.h inventory.h location.h
 
 game: $(OBJS) object.c map.png 
