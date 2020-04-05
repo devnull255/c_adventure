@@ -2,11 +2,11 @@
 CC = cc
 CFLAGS =
 CPPFLAGS =
-OBJS = main.o location.o misc.o inventory.o 
+OBJS = main.o object.o toggle.o execute.o location.o misc.o inventory.o 
 H = object.h misc.h inventory.h location.h
 
-game: $(OBJS) object.c map.png 
-	$(CC) -o c_adventure object.c $(OBJS)
+game: $(OBJS) map.png 
+	$(CC) -o c_adventure $(OBJS)
 
 object.h: object.awk object.txt
 	awk -v pass=h -f object.awk object.txt > $@

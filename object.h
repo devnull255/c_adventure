@@ -12,6 +12,10 @@ typedef struct object {
     int weight;
     int capacity;
     int health;
+    const char *(*open)(struct object *);
+    const char *(*close)(struct object *);
+    const char *(*lock)(struct object *);
+    const char *(*unlock)(struct object *);
 } OBJECT;
 
 extern OBJECT objs[];
@@ -27,8 +31,18 @@ extern OBJECT objs[];
 #define exitCave	(objs + 8)
 #define wallField	(objs + 9)
 #define wallCave	(objs + 10)
+#define backroom	(objs + 11)
+#define wallBackroom	(objs + 12)
+#define openDoorToBackroom	(objs + 13)
+#define closedDoorToBackroom	(objs + 14)
+#define openDoorToCave	(objs + 15)
+#define closedDoorToCave	(objs + 16)
+#define openBox	(objs + 17)
+#define closedBox	(objs + 18)
+#define lockedBox	(objs + 19)
+#define keyForBox	(objs + 20)
 
-#define endOfObjs	(objs + 11)
+#define endOfObjs	(objs + 21)
 
 #define validObject(obj)	((obj) != NULL && (*(obj)->condition)((obj)))
 
